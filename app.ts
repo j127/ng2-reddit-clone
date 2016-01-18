@@ -19,6 +19,15 @@ class Article {
     voteDown(): void {
         this.votes -= 1;
     }
+
+    domain(): string {
+        try {
+            const link: string = this.link.split('//')[1];
+            return link.split('/')[0];
+        } catch (err) {
+            return null;
+        }
+    }
 }
 @Component({
     selector: 'reddit-article',
@@ -41,6 +50,7 @@ class Article {
             <a href="{{article.link}}" class="ui large header">
                 {{article.title}}
             </a>
+            <div class="meta">({{article.domain()}})</div>
             <ul class="ui big horizontal list voters">
                 <li class="item">
                     <a (click)="voteUp()">
@@ -91,7 +101,7 @@ class ArticleComponent {
                 <label for="link">Link:</label>
                 <input name="link" #newlink>
             </div>
-            <button (click)="addArticle(newtitle, newlink)" class="ui positive right floated button">Submit to the link</button>
+            <button (click)="addArticle(newtitle, newlink)" class="ui positive right floated button">Submit link</button>
         </form>
         <div class="ui grid posts">
             <reddit-article *ngFor="#article of articles" [article]="article"></reddit-article>
@@ -113,6 +123,9 @@ class RedditApp {
 
     addArticle(title: HTMLInputElement, link: HTMLInputElement): void {
         console.log(`Adding article title: ${title.value} and ${link.value}`);
+        this.articles.push(new Article(title.value, link.value, 0));
+        title.value = '';
+        link.value = '';
     }
 }
 

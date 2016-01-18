@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <title>Simple Reddit</title>
+    <link rel="icon" type="image/png" href="resources/images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" href="resources/images/favicon.ico" />
+    <script src="node_modules/es6-shim/es6-shim.js"></script>
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <link rel="stylesheet" type="text/css" href="resources/vendor/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        System.config({
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('app.js')
+                .then(null, console.error.bind(console));
+    </script>
+</head>
+<body>
+    <div class="ui menu">
+        <div class="ui container">
+            <a href="#" class="header item">
+                Reddit Clone
+            </a>
+            <div class="header item borderless">
+                <h1 class="ui header">
+                    Angular 2 Reddit Clone
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="ui main text container">
+        <reddit></reddit>
+    </div>
+</body>
+</html>
+

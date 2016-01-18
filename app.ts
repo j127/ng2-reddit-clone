@@ -104,7 +104,7 @@ class ArticleComponent {
             <button (click)="addArticle(newtitle, newlink)" class="ui positive right floated button">Submit link</button>
         </form>
         <div class="ui grid posts">
-            <reddit-article *ngFor="#article of articles" [article]="article"></reddit-article>
+            <reddit-article *ngFor="#article of sortedArticles()" [article]="article"></reddit-article>
         </div>
     `,
     directives: [ArticleComponent]
@@ -126,6 +126,10 @@ class RedditApp {
         this.articles.push(new Article(title.value, link.value, 0));
         title.value = '';
         link.value = '';
+    }
+
+    sortedArticles(): Article[] {
+        return this.articles.sort((a: Article, b: Article) => b.votes - a.votes);
     }
 }
 

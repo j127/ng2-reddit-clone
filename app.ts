@@ -22,6 +22,7 @@ class Article {
 }
 @Component({
     selector: 'reddit-article',
+    inputs: ['article'],
     host: {
         class: 'row'
     },
@@ -93,13 +94,22 @@ class ArticleComponent {
             <button (click)="addArticle(newtitle, newlink)" class="ui positive right floated button">Submit to the link</button>
         </form>
         <div class="ui grid posts">
-            <reddit-article></reddit-article>
+            <reddit-article *ngFor="#article of articles" [article]="article"></reddit-article>
         </div>
     `,
     directives: [ArticleComponent]
 })
 class RedditApp {
-    constructor() { }
+
+    articles: Article[];
+
+    constructor() {
+        this.articles = [
+            new Article('Angular 2', 'http://angular.io/', 3),
+            new Article('Fullstack', 'http://fullstack.io/', 2),
+            new Article('Github', 'http://github.io', 1)
+        ];
+    }
 
     addArticle(title: HTMLInputElement, link: HTMLInputElement): void {
         console.log(`Adding article title: ${title.value} and ${link.value}`);
